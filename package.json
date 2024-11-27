@@ -4,7 +4,8 @@
   "description": "Makes it easier to add interactions on iNaturalist.",
   "main": "content_script.js",
   "scripts": {
-    "dev": "concurrently \"esbuild content_script.ts --bundle --watch --outfile=content_script.js\" \"web-ext run --keep-profile-changes --firefox-profile=test --start-url https://www.inaturalist.org/observations/235761958\"",
+    "build:watch": "esbuild content_script.ts --bundle --watch --loader:.css=text --outfile=content_script.js",
+    "dev": "concurrently \"npm run build:watch\" \"web-ext run --keep-profile-changes --firefox-profile=test --start-url https://www.inaturalist.org/observations/235761958\"",
     "lint": "web-ext lint --ignore-files tsconfig.json"
   },
   "author": "w-biggs",
