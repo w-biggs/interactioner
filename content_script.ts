@@ -26,20 +26,6 @@ const Interactioner = () => {
 									div(
 										{ class: 'form-group' },
 										label(
-											{ for: 'interactioner-url' },
-											'URL of other observation'
-										),
-										input(
-											{
-												class: 'form-control',
-												id: 'interactioner-url',
-												type: 'text'
-											}
-										)
-									),
-									div(
-										{ class: 'form-group' },
-										label(
 											{ for: 'interactioner-type' },
 											'Interaction type'
 										),
@@ -51,6 +37,20 @@ const Interactioner = () => {
 											option({ value: 'Carrying' }, 'Carrying'),
 											option({ value: 'Attached to' }, 'Attached to'),
 											option({ value: 'Associated with' }, 'Associated with')
+										)
+									),
+									div(
+										{ class: 'form-group' },
+										label(
+											{ for: 'interactioner-url' },
+											'URL of other observation'
+										),
+										input(
+											{
+												class: 'form-control',
+												id: 'interactioner-url',
+												type: 'text'
+											}
 										)
 									),
 									button({ type: 'submit', class: 'btn btn-success' }, 'Add interaction')
