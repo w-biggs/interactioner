@@ -125,7 +125,7 @@
   };
 
   // content_script.ts
-  var { div, h4, i } = van_default.tags;
+  var { button, div, form, h4, i, input, label, option, select } = van_default.tags;
   var Interactioner = () => {
     const panelExpanded = van_default.state(true);
     return div(
@@ -148,7 +148,39 @@
                 ariaExpanded: panelExpanded.val
               },
               div(
-                div("Test text")
+                form(
+                  div(
+                    { class: "form-group" },
+                    label(
+                      { for: "interactioner-url" },
+                      "URL of other observation"
+                    ),
+                    input(
+                      {
+                        class: "form-control",
+                        id: "interactioner-url",
+                        type: "text"
+                      }
+                    )
+                  ),
+                  div(
+                    { class: "form-group" },
+                    label(
+                      { for: "interactioner-type" },
+                      "Interaction type"
+                    ),
+                    select(
+                      { class: "form-control", style: "min-width: 100%" },
+                      option({ value: "Visited flower of" }, "Visited flower of"),
+                      option({ value: "Eating" }, "Eating"),
+                      option({ value: "Parasitizing" }, "Parasitizing"),
+                      option({ value: "Carrying" }, "Carrying"),
+                      option({ value: "Attached to" }, "Attached to"),
+                      option({ value: "Associated with" }, "Associated with")
+                    )
+                  ),
+                  button({ type: "submit", class: "btn btn-success" }, "Add interaction")
+                )
               )
             )
           )

@@ -1,6 +1,6 @@
 import van, { State } from 'vanjs-core';
 
-const { div, h4, i } = van.tags;
+const { button, div, form, h4, i, input, label, option, select } = van.tags;
 
 const Interactioner = () => {
 	const panelExpanded: State<boolean> = van.state<boolean>(true);
@@ -22,7 +22,39 @@ const Interactioner = () => {
 								ariaExpanded: panelExpanded.val
 							},
 							div(
-								div('Test text')
+								form(
+									div(
+										{ class: 'form-group' },
+										label(
+											{ for: 'interactioner-url' },
+											'URL of other observation'
+										),
+										input(
+											{
+												class: 'form-control',
+												id: 'interactioner-url',
+												type: 'text'
+											}
+										)
+									),
+									div(
+										{ class: 'form-group' },
+										label(
+											{ for: 'interactioner-type' },
+											'Interaction type'
+										),
+										select(
+											{ class: 'form-control', style: 'min-width: 100%' },
+											option({ value: 'Visited flower of' }, 'Visited flower of'),
+											option({ value: 'Eating' }, 'Eating'),
+											option({ value: 'Parasitizing' }, 'Parasitizing'),
+											option({ value: 'Carrying' }, 'Carrying'),
+											option({ value: 'Attached to' }, 'Attached to'),
+											option({ value: 'Associated with' }, 'Associated with')
+										)
+									),
+									button({ type: 'submit', class: 'btn btn-success' }, 'Add interaction')
+								)
 							)
 						),
 					)
