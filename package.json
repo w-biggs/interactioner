@@ -8,7 +8,7 @@
     "lint": "web-ext lint --ignore-files tsconfig.json"
   },
   "author": "w-biggs",
-  "license": "ISC",
+  "license": "LGPL-3.0-or-later",
   "dependencies": {
     "concurrently": "^9.1.0",
     "esbuild": "^0.24.0",
