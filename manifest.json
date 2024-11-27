@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "interactioner",
+	"description": "Makes it easier to add interactions on iNaturalist.",
+	"version": "0.0.1",
+	"icons": {
+		"64": "icons/icon.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://*.inaturalist.org/observations/*"
+			],
+			"js": [
+				"content_script.js"
+			]
+		}
+	]
+}
