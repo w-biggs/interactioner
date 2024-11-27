@@ -1,4 +1,5 @@
 import van, { State } from 'vanjs-core';
+import {handleForm} from "./formHandler";
 
 const { button, div, form, h4, i, input, label, option, select } = van.tags;
 
@@ -23,6 +24,7 @@ export const Interactioner = () => {
 							},
 							div(
 								form(
+									{ onsubmit: handleForm },
 									div(
 										{ class: 'form-group' },
 										label(
@@ -30,7 +32,12 @@ export const Interactioner = () => {
 											'Interaction type'
 										),
 										select(
-											{ class: 'form-control', style: 'min-width: 100%' },
+											{
+												class: 'form-control',
+												style: 'min-width: 100%',
+												name: 'interactioner-type',
+												id: 'interactioner-type'
+											},
 											option({ value: 'Visited flower of' }, 'Visited flower of'),
 											option({ value: 'Eating' }, 'Eating'),
 											option({ value: 'Parasitizing' }, 'Parasitizing'),
@@ -49,7 +56,10 @@ export const Interactioner = () => {
 											{
 												class: 'form-control',
 												id: 'interactioner-url',
-												type: 'text'
+												name: 'interactioner-url',
+												type: 'url',
+												pattern: 'https://.*\.inaturalist.org/observations/.*',
+												required: true
 											}
 										)
 									),
