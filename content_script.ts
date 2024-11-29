@@ -8,8 +8,6 @@ styles.textContent = `
 `;
 
 const insert = (container: HTMLDivElement) => {
-	console.log('inserting');
-
 	document.head.appendChild(styles);
 	container.insertBefore(Interactioner(), container.children[5]);
 
@@ -17,6 +15,13 @@ const insert = (container: HTMLDivElement) => {
 };
 
 const waitForRender = () => {
+	// check if logged in
+	const apiTokenTag = document.querySelector<HTMLMetaElement>('meta[name=inaturalist-api-token]');
+
+	if (!apiTokenTag) {
+		return;
+	}
+
 	const app = document.getElementById('app');
 
 	if (!app) {
@@ -26,7 +31,6 @@ const waitForRender = () => {
 
 	const observer = new MutationObserver(() => {
 		const obsSidebarContainer = document.querySelector<HTMLDivElement>('.opposite_activity');
-		console.log(obsSidebarContainer);
 
 		if (obsSidebarContainer) {
 			insert(obsSidebarContainer);

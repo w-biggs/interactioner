@@ -5,7 +5,8 @@
   "main": "content_script.js",
   "scripts": {
     "build:watch": "esbuild content_script.ts --bundle --watch --loader:.css=text --outfile=content_script.js",
-    "dev": "concurrently \"npm run build:watch\" \"web-ext run --keep-profile-changes --firefox-profile=test --start-url https://www.inaturalist.org/observations/251945462\"",
+    "dev": "concurrently \"npm run build:watch\" \"web-ext run --keep-profile-changes --firefox-profile=test\"",
+    "dev:chrome": "concurrently \"npm run build:watch\" \"web-ext run --target chromium\"",
     "lint": "web-ext lint --ignore-files tsconfig.json"
   },
   "author": "w-biggs",
