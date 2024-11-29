@@ -1,7 +1,23 @@
 import van, { State } from 'vanjs-core';
-import {handleForm} from "./formHandler";
+import { handleForm } from "./formHandler";
+import interactionMap from './interactionMap.json';
 
 const { button, div, form, h4, i, input, label, option, select } = van.tags;
+
+const TypeSelect = () => {
+	const typeSelect = select({
+		class: 'form-control',
+		style: 'min-width: 100%',
+		name: 'interactioner-type',
+		id: 'interactioner-type'
+	});
+
+	for (const interaction of interactionMap.interactions) {
+		van.add(typeSelect, option({ value: interaction.type }, interaction.type));
+	}
+
+	return typeSelect;
+};
 
 export const Interactioner = () => {
 	const panelExpanded: State<boolean> = van.state<boolean>(true);
@@ -31,20 +47,7 @@ export const Interactioner = () => {
 											{ for: 'interactioner-type' },
 											'Interaction type'
 										),
-										select(
-											{
-												class: 'form-control',
-												style: 'min-width: 100%',
-												name: 'interactioner-type',
-												id: 'interactioner-type'
-											},
-											option({ value: 'Visited flower of' }, 'Visited flower of'),
-											option({ value: 'Eating' }, 'Eating'),
-											option({ value: 'Parasitizing' }, 'Parasitizing'),
-											option({ value: 'Carrying' }, 'Carrying'),
-											option({ value: 'Attached to' }, 'Attached to'),
-											option({ value: 'Associated with' }, 'Associated with')
-										)
+										TypeSelect()
 									),
 									div(
 										{ class: 'form-group' },

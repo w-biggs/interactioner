@@ -15,5 +15,6 @@
 				"content_script.js"
 			]
 		}
-	]
+	],
+	"permissions": ["https://api.inaturalist.org/*"]
 }
