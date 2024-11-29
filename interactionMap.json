@@ -1,0 +1,39 @@
+{
+  "interactions": [
+    {
+      "type": "Visiting flower of",
+      "fromLinkedFieldId": 7459,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 3126,
+      "toTaxonFieldId": 3125
+    },
+    {
+      "type": "Eating",
+      "fromLinkedFieldId": 7460,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 13,
+      "toTaxonFieldId": 879
+    },
+    {
+      "type": "Parasitizing",
+      "fromLinkedFieldId": 7461,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 3137,
+      "toTaxonFieldId": 3138
+    },
+    {
+      "type": "Attached to",
+      "fromLinkedFieldId": 7463,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 5267,
+      "toTaxonFieldId": null
+    },
+    {
+      "type": "Associated with",
+      "fromLinkedFieldId": 7464,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 2682,
+      "toTaxonFieldId": 2682
+    }
+  ]
+}
