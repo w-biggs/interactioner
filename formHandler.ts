@@ -135,7 +135,7 @@ const addInteractions = async (toObsUrl: string, interaction: string) => {
 	addFieldsPromises.push(addObsField(
 		toObsId,
 		interactionObj.toLinkedFieldId,
-		toObsUrl,
+		window.location.href,
 		obsFieldUUID(toObs, interactionObj.toLinkedFieldId)
 	));
 	if (fromObs.taxon?.id && interactionObj.toTaxonFieldId) {
