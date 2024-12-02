@@ -31,6 +31,15 @@
       "fromProjectId": 33779
     },
     {
+      "type": "Gall of North America",
+      "fromLinkedFieldId": 7461,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 3137,
+      "toTaxonFieldId": 3138,
+      "fromProjectFieldId": 6586,
+      "fromProjectId": 35074
+    },
+    {
       "type": "Pathogen of",
       "fromLinkedFieldId": 7461,
       "toLinkedFieldId": 8846,
@@ -55,6 +64,13 @@
     },
     {
       "type": "Associated with",
+      "fromLinkedFieldId": 7464,
+      "toLinkedFieldId": 7464,
+      "fromTaxonFieldId": 2682,
+      "toTaxonFieldId": 2682
+    },
+    {
+      "type": "Associated with (passive partner)",
       "fromLinkedFieldId": 7464,
       "toLinkedFieldId": 8846,
       "fromTaxonFieldId": 2682,
