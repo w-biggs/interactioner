@@ -22,6 +22,31 @@
       "toTaxonFieldId": 3138
     },
     {
+      "type": "Leafminer of North America",
+      "fromLinkedFieldId": 7461,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 3137,
+      "toTaxonFieldId": 3138,
+      "fromProjectFieldId": 6586,
+      "fromProjectId": 33779
+    },
+    {
+      "type": "Pathogen of",
+      "fromLinkedFieldId": 7461,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 3140,
+      "toTaxonFieldId": 3139
+    },
+    {
+      "type": "Plant Pathogen of the E US",
+      "fromLinkedFieldId": 7461,
+      "toLinkedFieldId": 8846,
+      "fromTaxonFieldId": 3140,
+      "toTaxonFieldId": 3139,
+      "fromProjectFieldId": 6586,
+      "fromProjectId": 47428
+    },
+    {
       "type": "Attached to",
       "fromLinkedFieldId": 7463,
       "toLinkedFieldId": 8846,

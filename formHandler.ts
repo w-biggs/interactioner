@@ -41,7 +41,31 @@ const getAPIToken = () => {
 	return apiTokenTag.content;
 };
 
-const addInteractionById = async (obsId: string, fieldId: string | number, value: string | number, uuid: string | undefined) => {
+const addObsToProject = async (obsId: string, projectId: string | number) => {
+	const requestURL = `https://api.inaturalist.org/v1/project_observations`;
+	const requestOptions = {
+		method: 'POST',
+		body: JSON.stringify({
+			project_observation: {
+				observation_id: obsId,
+				project_id: projectId
+			}
+		}),
+		headers: {
+			'Authorization': getAPIToken()
+		}
+	};
+
+	const response = await fetch(requestURL, requestOptions);
+
+	if (!response.ok) {
+		throw new Error(`Add observation to project: HTTP error ${response.status} -- ${await response.text()}`);
+	}
+
+	return;
+};
+
+const addObsField = async (obsId: string, fieldId: string | number, value: string | number, uuid: string | undefined) => {
 	const requestURL = `https://api.inaturalist.org/v1/observation_field_values/${uuid ?? ''}`;
 	const requestOptions = {
 		method: uuid ? 'PUT' : 'POST',
@@ -60,7 +84,7 @@ const addInteractionById = async (obsId: string, fieldId: string | number, value
 	const response = await fetch(requestURL, requestOptions);
 
 	if (!response.ok) {
-		throw new Error(`Add interaction by ID: HTTP error ${response.status} -- ${await response.text()}`);
+		throw new Error(`Add observation field: HTTP error ${response.status} -- ${await response.text()}`);
 	}
 
 	return;
@@ -82,34 +106,76 @@ const addInteractions = async (toObsUrl: string, interaction: string) => {
 	const toObs = await getObsInfo(toObsId);
 	const fromObs = await getObsInfo(fromObsId);
 
-	await addInteractionById(
+	const addFieldsPromises: Promise<void>[] = [];
+
+	addFieldsPromises.push(addObsField(
 		fromObsId,
 		interactionObj.fromLinkedFieldId,
 		toObsUrl,
 		obsFieldUUID(fromObs, interactionObj.fromLinkedFieldId)
-	);
+	));
 	if (toObs.taxon?.id) {
-		await addInteractionById(
+		addFieldsPromises.push(addObsField(
 			fromObsId,
 			interactionObj.fromTaxonFieldId,
 			toObs.taxon.id,
 			obsFieldUUID(fromObs, interactionObj.fromTaxonFieldId)
-		);
+		));
+
+		if (interactionObj.fromProjectFieldId) {
+			addFieldsPromises.push(addObsField(
+				fromObsId,
+				interactionObj.fromProjectFieldId,
+				toObs.taxon.id,
+				obsFieldUUID(fromObs, interactionObj.fromProjectFieldId)
+			));
+		}
 	}
 
-	await addInteractionById(
+	addFieldsPromises.push(addObsField(
 		toObsId,
 		interactionObj.toLinkedFieldId,
 		toObsUrl,
 		obsFieldUUID(toObs, interactionObj.toLinkedFieldId)
-	);
+	));
 	if (fromObs.taxon?.id && interactionObj.toTaxonFieldId) {
-		await addInteractionById(
+		addFieldsPromises.push(addObsField(
 			toObsId,
 			interactionObj.toTaxonFieldId,
 			fromObs.taxon.id,
 			obsFieldUUID(toObs, interactionObj.toTaxonFieldId)
-		);
+		));
+	}
+
+	const allFieldsResults = await Promise.allSettled(addFieldsPromises);
+	const fieldsFailures = allFieldsResults.filter((result) => result.status === 'rejected');
+
+	if (fieldsFailures.length) {
+		const errors = fieldsFailures.map((failure) => failure.reason).join('\n');
+
+		throw new Error(errors);
+	}
+
+	const addToProjectPromises: Promise<void>[] = [];
+
+	addToProjectPromises.push(addObsToProject(
+		fromObsId,
+		15477
+	));
+	if (interactionObj.fromProjectId) {
+		addToProjectPromises.push(addObsToProject(
+			fromObsId,
+			interactionObj.fromProjectId
+		));
+	}
+
+	const allProjectsResults = await Promise.allSettled(addToProjectPromises);
+	const projectsFailures = allProjectsResults.filter((result) => result.status === 'rejected');
+
+	if (projectsFailures.length) {
+		const errors = projectsFailures.map((failure) => failure.reason).join('\n');
+
+		throw new Error(errors);
 	}
 
 	window.location.reload();
